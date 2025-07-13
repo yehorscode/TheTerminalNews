@@ -1,0 +1,11 @@
+Amber = #FFB000
+Lt.Amb. = #FFCC00
+
+Green1 = #33FF00
+Apple = #33FF33
+Green2 = #00FF33
+
+Apple llc = #66FF66
+Green3 = #00FF66
+
+GrayBG = #282828

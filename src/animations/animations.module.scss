@@ -1,0 +1,13 @@
+.animate-blink {
+    animation: terminal_blink 1s steps(1, start) infinite;
+    transition: 1s ease;
+}
+
+@keyframes terminal_blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
