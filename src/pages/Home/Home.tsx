@@ -2,7 +2,7 @@ import useFetchData from "@/components/useFetchData";
 import "./Home.module.scss";
 
 export default function Home() {
-    const { feed, error } = useFetchData("world", true);
+    const { feed, error } = useFetchData("world");
 
     if (error) return <div>Error {error}</div>;
     if (!feed) return <div>Loading...</div>;

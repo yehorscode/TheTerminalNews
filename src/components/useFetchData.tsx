@@ -30,7 +30,6 @@ type FeedItem = {
 
 export default function useFetchData(
     select_feed: keyof typeof feeds = "world",
-    is_debug: boolean = false
 ) {
     const [feed, setFeed] = useState<Feed | null>(null);
     const [error, setError] = useState<string | null>(null);
