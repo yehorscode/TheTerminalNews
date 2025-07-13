@@ -1,6 +1,5 @@
 import useFetchData from "@/components/useFetchData";
 import "./Home.module.scss";
-import styles from "@/animations/animations.module.scss";
 
 export default function Home() {
     const { feed, error } = useFetchData("world", true);
