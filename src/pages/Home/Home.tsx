@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function Home() {
     const feeds = getFeedList();
     const [selectedFeed, setSelectedFeed] = useState<keyof typeof feeds>("world");
+    const [feedTitle, setFeedTitle] = useState<string>("");
     const { feed, error } = useFetchData(selectedFeed);
 
     if (error) return <div>Error {error}</div>;
@@ -15,7 +16,7 @@ export default function Home() {
     return (
         <div className="mt-5">
             <div className="mb-4">
-                <h1 className="text-4xl font-mono">Global News</h1>
+                <h1 className="text-4xl font-mono">{feed.title?.split('>').pop()?.trim() || ''}</h1>
                 <h1 className="font-mono opacity-70">{feed.title}</h1>
                 <select
                     className="mt-2 p-1 border border-green-600 bg-black text-green-500 font-mono rounded"
