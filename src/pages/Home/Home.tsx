@@ -7,7 +7,6 @@ import { useState } from "react";
 export default function Home() {
     const feeds = getFeedList();
     const [selectedFeed, setSelectedFeed] = useState<keyof typeof feeds>("world");
-    const [feedTitle, setFeedTitle] = useState<string>("");
     const { feed, error } = useFetchData(selectedFeed);
 
     if (error) return <div>Error {error}</div>;
