@@ -22,7 +22,7 @@ export default function Home() {
                     value={selectedFeed}
                     onChange={e => setSelectedFeed(e.target.value as keyof typeof feeds)}
                 >
-                    {Object.entries(feeds).map(([key, url]) => (
+                    {Object.entries(feeds).map(([key]) => (
                         <option key={key} value={key}>
                             {key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}
                         </option>
