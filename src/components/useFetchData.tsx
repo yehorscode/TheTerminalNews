@@ -18,7 +18,7 @@ type Feed = {
     items: FeedItem[];
 };
 
-type FeedItem = {
+export type FeedItem = {
     title: string;
     link: string;
     pubDate?: string;
