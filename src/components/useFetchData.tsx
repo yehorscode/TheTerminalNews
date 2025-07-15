@@ -13,11 +13,6 @@ const feeds = {
     technology: "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
 };
 
-type Feed = {
-    title: string;
-    items: FeedItem[];
-};
-
 export type FeedItem = {
     title: string;
     link: string;
@@ -28,6 +23,15 @@ export type FeedItem = {
     content?: string;
 };
 
+type Feed = {
+    title: string;
+    items: FeedItem[];
+};
+
+export function getFeedList() {
+    return feeds;
+}
+
 export default function useFetchData(
     select_feed: keyof typeof feeds = "world",
 ) {
@@ -35,7 +39,6 @@ export default function useFetchData(
     const [error, setError] = useState<string | null>(null);
     const [feed_url, setFeedUrl] = useState<string | null>(feeds[select_feed]);
 
-    // Set feed_url only when select_feed changes
     useEffect(() => {
         setFeedUrl(feeds[select_feed]);
     }, [select_feed]);
@@ -44,10 +47,8 @@ export default function useFetchData(
         if (!feed_url) return;
         const FetchRss = async () => {
             try {
-                const CORS_PROXY = "https://proxy.corsfix.com/?";
-                const response = await axios.get(CORS_PROXY + feed_url, {
-                    headers: { "User-Agent": "RSS Fetcher/1.0" },
-                });
+                // Use the new API route as a CORS proxy
+                const response = await axios.get(`/api/rss?url=${encodeURIComponent(feed_url)}`);
 
                 const parser = new DOMParser();
                 const xmlDoc = parser.parseFromString(
@@ -92,10 +93,11 @@ export default function useFetchData(
                 console.log("Feed succesfully(?) fetched")
             } catch (err) {
                 toast.error("An error occurred while fetching the RSS feed.");
+                setError("Failed to fetch RSS feed");
                 console.error("Error fetching/parsing RSS:", err);
             }
         };
         FetchRss();
-    }, []);
+    }, [feed_url]);
     return { feed, error };
 }

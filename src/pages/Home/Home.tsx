@@ -1,10 +1,13 @@
-import useFetchData from "@/components/useFetchData";
+import useFetchData, { getFeedList } from "@/components/useFetchData";
 import "./Home.module.scss";
 import noimage from "@/assets/noimage.png";
 import type { FeedItem } from "@/components/useFetchData";
+import { useState } from "react";
 
 export default function Home() {
-    const { feed, error } = useFetchData("world");
+    const feeds = getFeedList();
+    const [selectedFeed, setSelectedFeed] = useState<keyof typeof feeds>("world");
+    const { feed, error } = useFetchData(selectedFeed);
 
     if (error) return <div>Error {error}</div>;
     if (!feed) return <div>Loading...</div>;
@@ -14,6 +17,17 @@ export default function Home() {
             <div className="mb-4">
                 <h1 className="text-4xl font-mono">Global News</h1>
                 <h1 className="font-mono opacity-70">{feed.title}</h1>
+                <select
+                    className="mt-2 p-1 border border-green-600 bg-black text-green-500 font-mono rounded"
+                    value={selectedFeed}
+                    onChange={e => setSelectedFeed(e.target.value as keyof typeof feeds)}
+                >
+                    {Object.entries(feeds).map(([key, url]) => (
+                        <option key={key} value={key}>
+                            {key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}
+                        </option>
+                    ))}
+                </select>
             </div>
             <div className="border-dashed border-t-2 border-b-2 border-green-600 p-2 hover:cursor-pointer">
                 {feed.items[0] && (
