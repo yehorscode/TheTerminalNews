@@ -9,8 +9,8 @@ export default function Home() {
     const [selectedFeed, setSelectedFeed] = useState<keyof typeof feeds>("world");
     const { feed, error } = useFetchData(selectedFeed);
 
-    if (error) return <div>Error {error}</div>;
-    if (!feed) return <div>Loading...</div>;
+    if (error) return <div>Error {error}. Note!: Wait a minute and refresh. The api may be asleep. Let it start up</div>;
+    if (!feed) return <div>Loading... Doesn't load? Note!: Wait a minute and refresh. The api may be asleep. Let it start up</div>;
 
     return (
         <div className="mt-5">
