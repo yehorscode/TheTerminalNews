@@ -8,7 +8,7 @@ NOTE: WARNING: PLEASE LOOK: if no one opened it in a while it may take up to 40 
 ### How to run (locally)
 if you are a schizo and you are paranoid please run this:
 ```bash
-git clone https://github.com/yehorscode/TheTerminalNews TheTerminal && cd TheTerminal && echo installed the repo now installing dependencies && npm i && echo running site && npm run dev
+git clone https://github.com/yehorscode/TheTerminalNews TheTerminal && echo WARNING will install vercel && npm i && npx vercel dev
 ```
 
 ### Is this legal?
