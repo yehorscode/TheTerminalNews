@@ -2,7 +2,7 @@ import useFetchData, { getFeedList } from "@/components/useFetchData";
 import "./Home.module.scss";
 import noimage from "@/assets/noimage.png";
 import type { FeedItem } from "@/components/useFetchData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
     const feeds = getFeedList();
@@ -11,6 +11,14 @@ export default function Home() {
     const { feed, error } = useFetchData(selectedFeed);
     const [errorClock, setErrorClock] = useState(21);
     const [maxFeed, setMaxFeed] = useState(9);
+    const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTime(new Date().toLocaleTimeString());
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
 
     function expandFeed() {
         setMaxFeed(200);
@@ -48,7 +56,7 @@ export default function Home() {
         <div className="mt-5">
             <div className="mb-4">
                 <h1 className="text-4xl font-mono">
-                    {feed.title?.split(">").pop()?.trim() || ""}
+                    {feed.title?.split(">").pop()?.trim() || ""} {time}
                 </h1>
                 <h1 className="font-mono opacity-70">{feed.title}</h1>
                 <select
